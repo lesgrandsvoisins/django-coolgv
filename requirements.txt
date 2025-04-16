@@ -1,0 +1,4 @@
+django
+dotenv
+urllib3
+dj-database-url
