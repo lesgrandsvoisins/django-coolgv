@@ -18,7 +18,9 @@ endif
 
 venv:
 	$(EXEC_CMD) python -m venv .venv
-	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/pip install --upgrade pip django
+
+requirements:
+	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/pip install --upgrade pip
 	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/pip install -r requirements.txt
 
 secretkey:
@@ -35,3 +37,9 @@ makemigrations:
 
 migrate:
 	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/python $(PROJECT_PATH)/manage.py migrate
+
+createsuperuser:
+	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/python $(PROJECT_PATH)/manage.py createsuperuser --username admin --email chris@mann.fr --skip-checks
+
+collectstatic:
+	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/python $(PROJECT_PATH)/manage.py collectstatic

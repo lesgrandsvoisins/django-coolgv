@@ -2,4 +2,8 @@ django
 dotenv
 urllib3
 dj-database-url
-djlintmake ma
+djlint
+django-markdownx
+django-solo
+markdown
+django-markdownfield

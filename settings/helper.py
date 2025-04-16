@@ -40,7 +40,8 @@ for host in ALLOWED_HOSTS:
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///%s/db.sqlite3" % BASE_DIR)  # Lire depuis .env
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, os.getenv("STATIC_ROOT","static"))
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, os.getenv("MEDIA_ROOT","media"))
 
+SITE_URL = os.getenv("SECRET_KEY")

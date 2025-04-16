@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import dj_database_url  # Pour un syntaxe différent de base de données
-from .helper import PROJECT_DIR, BASE_DIR, DEBUG, DEBUG_TOOLBAR, DATABASE_URL, HOST_NAME, SECRET_KEY
+from .helper import PROJECT_DIR, BASE_DIR, DEBUG, DEBUG_TOOLBAR, DATABASE_URL, HOST_NAME, SECRET_KEY, STATIC_ROOT, MEDIA_ROOT
+from datetime import datetime
 
 # Application definition
 
@@ -24,6 +25,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lesgv',
+    'markdownx',
+    'solo',
+    'markdown',
+    # 'markdownfield',
 ]
 
 MIDDLEWARE = [
@@ -103,8 +108,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = 'media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')

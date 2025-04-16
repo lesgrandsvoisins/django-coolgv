@@ -1,5 +1,12 @@
+{% extends "lesgv/index.html" %}
 <!-- lgv_page.html -->
+ {% load markdown_extras %}
+ {% block content %}
 <div>
+
   <h2>{{ object.title }}</h2>
-  <p>{{ object.body }}</p>
+  <p>{{ object.body | markdown | safe }}</p>
+
+
 </div>
+{% endblock content %}
