@@ -1,5 +1,5 @@
 """
-WSGI config for lesgv project.
+WSGI config for coolgv project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

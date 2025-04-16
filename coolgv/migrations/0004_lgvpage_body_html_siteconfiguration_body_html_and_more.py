@@ -7,7 +7,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('lesgv', '0003_siteconfiguration'),
+        ('coolgv', '0003_siteconfiguration'),
     ]
 
     operations = [

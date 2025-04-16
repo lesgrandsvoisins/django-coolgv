@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('lesgv', '0002_alter_lgvpage_body'),
+        ('coolgv', '0002_alter_lgvpage_body'),
     ]
 
     operations = [

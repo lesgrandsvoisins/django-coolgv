@@ -6,13 +6,13 @@ from .models import LgvPage
 # Create your views here.
 def index(request):
   context = {
-    "title": "LesGV",
+    "title": "CooLgv",
     "lang_code": "fr",
     "description": "L'Autre est Une Chance."
   }
-  return render(request, "lesgv/index.html",context)
+  return render(request, "coolgv/index.html",context)
 
 class LgvPage(DetailView):
   model = LgvPage
-  template_name = "lesgv/lgv_page.html"
+  template_name = "coolgv/lgv_page.html"
 

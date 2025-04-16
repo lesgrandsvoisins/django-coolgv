@@ -1,5 +1,5 @@
 """
-ASGI config for lesgv project.
+ASGI config for coolgv project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

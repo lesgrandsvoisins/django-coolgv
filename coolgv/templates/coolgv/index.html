@@ -2,24 +2,24 @@
 <!doctype html>
 <html class="no-js" lang="fr">
 
-{% get_solo 'lesgv.SiteConfiguration' as site_config %}
+{% get_solo 'coolgv.SiteConfiguration' as site_config %}
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ site_config.site_name }}</title>
-  <link rel="stylesheet" href="{% static 'lesgv/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'coolgv/css/style.css' %}">
   <meta name="description" content="{{ site_config.description }}">
 
   <meta property="og:title" content="{{ site_config.site_name }}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ request.path }}">
-  <meta property="og:image" content="{% static 'lesgv/img/icon.svg' %}">
-  <meta property="og:image:alt" content="{% static 'lesgv/img/icon.png' %}">
+  <meta property="og:image" content="{% static 'coolgv/img/icon.svg' %}">
+  <meta property="og:image:alt" content="{% static 'coolgv/img/icon.png' %}">
 
   <link rel="icon" href="{% static 'favicon.ico' %}" sizes="any">
-  <link rel="icon" href="{% static 'lesgv/img/icon.svg' %}" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="{% static 'lesgv/img/icon.png' %}">
+  <link rel="icon" href="{% static 'coolgv/img/icon.svg' %}" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{% static 'coolgv/img/icon.png' %}">
 
   <link rel="manifest" href="{% static 'site.webmanifest' %}">
   <meta name="theme-color" content="#fafafa">
@@ -31,7 +31,7 @@
 {% block content %}
   {{  site_config.body | markdown | safe  }}
 {% endblock content %}
-<script src="{% static 'lesgv/js/app.js' %}"></script>
+<script src="{% static 'coolgv/js/app.js' %}"></script>
 
 </body>
 
