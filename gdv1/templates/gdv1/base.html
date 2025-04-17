@@ -1,0 +1,51 @@
+{% load static solo_tags %}
+<!doctype html>
+<html class="no-js" lang="fr">
+
+{% get_solo 'gdv1.SiteConfiguration' as site_config %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ page.title_txt }}{% endblock title %}</title>
+  <link rel="stylesheet" href="{% static 'gdv1/css/style.css' %}">
+  <meta name="description" content="{{ page.description_txt }}">
+
+  <meta property="og:title" content="{{ page.title_txt }}">
+  <meta property="og:type" content="page.type_og">
+  <meta property="og:url" content="{{ request.path }}">
+  <meta property="og:image" content="{% static 'gdv1/img/icon.svg' %}">
+  <meta property="og:image:alt" content="{% static 'gdv1/img/icon.png' %}">
+
+  {% if request.in_preview_panel %}
+    <base target="_blank">
+  {% endif %}
+  <link rel="icon" href="{% static 'favicon.ico' %}" sizes="any">
+  <link rel="icon" href="{% static 'gdv1/img/icon.svg' %}" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{% static 'gdv1/img/icon.png' %}">
+
+  <link rel="manifest" href="{% static 'site.webmanifest' %}">
+  
+  {# Global stylesheets #}
+  <link rel="stylesheet" type="text/css"  href="{% static 'css/lesgv.css' %}">
+  <link rel="stylesheet" type="text/css"  href="{% static 'fonts/lack/stylesheet.css' %}" />
+  <link rel="stylesheet" type="text/css"  href="{% static 'fonts/fengardoneue/font.css' %}" />
+  {% block extra_css %}
+  {# Override this in templates to add extra stylesheets #}
+  {% endblock extra_css %}
+  {% block extra_head %}
+  {% endblock extra_head %}
+</head>
+
+<body class="{% block body_class %}{% endblock %} darkmode">
+  {% block content %}
+    {{ page.body_html | safe }}
+  {% endblock content %}
+<script src="{% static 'gdv1/js/lesgv.js' %}"></script>
+<script src="{% static 'gdv1/js/app.js' %}"></script>
+{% block extra_js %}
+{# Override this in templates to add extra javascript #}
+{% endblock extra_js %}
+</body>
+
+</html>

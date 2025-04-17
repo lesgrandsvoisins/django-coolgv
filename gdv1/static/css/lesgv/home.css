@@ -1,0 +1,58 @@
+main.gvhome a {
+    color: blue;
+    text-decoration: underline;
+    background-color: #ffffffcc;
+    border-radius: 5px;
+    padding: 0 4px;
+}
+
+main.gvhome hr {
+    border-style: solid;
+    border-width: 1px;
+    margin-top: 0.5rem;
+}
+
+main.gvhome h2 {
+    margin-top: 0.5rem;
+}
+
+div.home-section-2 h2,
+div.home-section-3 h2 {
+    text-align: center;
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+    margin-bottom: 0.5rem;
+}
+
+div.home-section-1 h2 {
+    text-align: left;
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+    margin-bottom: 0.5rem;
+}
+
+div.home-section-1-inner {
+    margin-left: 20vw;
+    border-left: 1px solid black;
+    padding-left: 2rem;
+}
+
+div.home-section-1-inner hr {
+    margin-left: -2rem;
+}
+
+div.home-section-1-inner h2::before {
+    content: "";
+    float: left;
+    margin: 12px -2rem -28px;
+    border: 1px solid #000;
+    width: 1.5rem;
+}
+
+div.gvhome-blog a {
+    color: unset;
+    text-decoration: unset;
+    background-color: unset;
+    border-radius: unset;
+    padding: unset;
+}

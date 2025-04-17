@@ -1,0 +1,8 @@
+{% extends "gdv1/index.html" %}
+<!-- gdv1_page.html -->
+ {% block content %}
+<div>
+  <h2>{{ title_html | safe }}</h2>
+  <p>{{ body_html | safe }}</p>
+</div>
+{% endblock content %}
