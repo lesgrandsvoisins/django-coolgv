@@ -1,6 +1,6 @@
 {% extends "gdv1/base.html" %}
 {% load static %}
-{% block body_class %}lesgv-home{% endblock %}
+{% block body_class %}lesgv-home{% endblock body_class %}
 {% block extra_css %}
   <link rel="stylesheet"
         type="text/css"
@@ -13,7 +13,10 @@
   <header class="min-w-full text-center">
     <a href="#main">
       <img class="logolgv max-w-full"
-           src="{% static 'img/lesgv/logo-lesgrandsvoisins-800-400-white.png' %}">
+           src="{% static 'img/lesgv/logo-lesgrandsvoisins-800-400-white.png' %}"
+           height=800
+           width=400
+           alt="Les Grands Voisins">
     </a>
   </header>
   <main class="gvhome darkmode" id="main">
@@ -73,7 +76,7 @@
                         {% endif %}
                       </ul>
                       <a href="{{ item.agenda_item.url }}"
-                         class='{% if forloop.counter|divisibleby:"2" %}left{% else %}right{% endif %}'>
+                         class="{% if forloop.counter|divisibleby:'2' %}left{% else %}right{% endif %}"">
                         {% comment %} <img src="{% item.agenda_item.image %}"> {% endcomment %}
                       </a>
                       {% if item.agenda_item.intro and item.agenda_item.intro != "" %}
@@ -89,6 +92,7 @@
             </div>
           </div>
         </div>
+      </div>
       {% endif %}
       <div class="bg-blue-300 py-6 ">
         <h2 class="text-xl text-center">Blog</h2>
@@ -99,6 +103,11 @@
     </main>
     <footer class="lesgv-footer md:grid grid-cols-2 bg-yellow-900 text-white">
       <div class="footer1 p-5">{{ footer1|safe }}</div>
-      <div class="footer2 p-5">{{ footer2|safe }}<p>(<a href="/admin">admin</a>)</div>
-    </footer>
-  {% endblock content %}
+      <div class="footer2 p-5">
+        {{ footer2|safe }}
+        <p>
+          (<a href="{% url 'admin:index' %}">admin</a>)
+        </p>
+        </div>
+      </footer>
+    {% endblock content %}

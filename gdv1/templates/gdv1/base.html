@@ -37,7 +37,7 @@
   {% endblock extra_head %}
 </head>
 
-<body class="{% block body_class %}{% endblock %} darkmode">
+<body class="{% block body_class %}{% endblock body_class %} darkmode">
   {% block content %}
     {{ page.body_html | safe }}
   {% endblock content %}

@@ -30,16 +30,16 @@ startproject:
 	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/django-admin startproject settings .
 
 runserver:
-	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/python $(PROJECT_PATH)/manage.py runserver
+	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/python $(PROJECT_PATH)manage.py runserver
 
 makemigrations:
-	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/python $(PROJECT_PATH)/manage.py makemigrations
+	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/python $(PROJECT_PATH)manage.py makemigrations
 
 migrate:
-	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/python $(PROJECT_PATH)/manage.py migrate
+	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/python $(PROJECT_PATH)manage.py migrate
 
 createsuperuser:
-	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/python $(PROJECT_PATH)/manage.py createsuperuser --username admin --email chris@mann.fr --skip-checks
+	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/python $(PROJECT_PATH)manage.py createsuperuser --username admin --email chris@mann.fr --skip-checks
 
 collectstatic:
-	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/python $(PROJECT_PATH)/manage.py collectstatic
+	$(EXEC_CMD) $(PROJECT_PATH).venv/bin/python $(PROJECT_PATH)manage.py collectstatic --no-input
