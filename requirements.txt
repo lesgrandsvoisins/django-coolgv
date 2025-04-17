@@ -7,3 +7,4 @@ django-markdownx
 django-solo
 markdown
 django-markdownfield
+html2text
