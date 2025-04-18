@@ -5,6 +5,11 @@ from html2text import html2text
 from markdown import markdown
 from .services import get_blog_posts, ProcessGhostParams
 
+def ifValF(val,func):
+  if not val:
+    return False
+  return func(val)
+
 # Create your views here.
 def index(request):
   config = SiteConfiguration.get_solo()
@@ -13,9 +18,11 @@ def index(request):
       "title_txt": html2text(config.title),
       "title_html": config.title,
       "lang_code": "fr",
-      "description_txt": '. '.join(html2text(config.description).split('. ')[:3]), # + ('.' if '. ' in text else ''),
+      "description_txt": ifValF(config.description,lambda x: '. '.join(html2text(x).split('. ')[:3])), # + ('.' if '. ' in text else '')
       "type_og": "website",
-      "body_html": markdown(config.body),
+      "body_html": ifValF(config.body, lambda x: markdown(x)),
+      "favicon": config.favicon,
+      "favicon_svg": config.favicon_svg,
     }
   }
   params = {"ghost_limit": 8}
@@ -25,10 +32,10 @@ def index(request):
     ProcessGhostParams(params)
   )
   context.update({
-    "intro": markdown(config.intro),
-    "section1": markdown(config.section1),
-    "section2": markdown(config.section2),
-    "section3": markdown(config.section3),
+    "intro": ifValF(config.intro, lambda x: markdown(x)),
+    "section1": ifValF(config.section1, lambda x: markdown(x)),
+    "section2": ifValF(config.section2, lambda x: markdown(x)),
+    "section3": ifValF(config.section3, lambda x: markdown(x)),
   })
   return render(request, "gdv1/index.html",context)
 
@@ -40,10 +47,10 @@ class Gdv1Page(DetailView):
     # Call the base implementation first to get a context
     context = super().get_context_data(**kwargs)
     context["title_txt"] = html2text(markdown(context["object"].title))
-    context["title_html"] = markdown(context["object"].title)
+    context["title_html"] = ifValF(context["object"].title, lambda x: markdown(x))
     context["lang_code"] = "fr"
-    context["description_txt"] = '. '.join(html2text(markdown(context["object"].body)).split('. ')[:3]), # + ('.' if '. ' in text else '')
+    context["description_txt"] = ifValF(context["object"].body, lambda x: '. '.join(html2text(markdown(x)).split('. ')[:3])), # + ('.' if '. ' in text else '')
     context["type_og"] = "website",
-    context["body_html"] = markdown(context["object"].body)
+    context["body_html"] = ifValF(context["object"].body, lambda x: markdown(x))
     return context
 

@@ -1,4 +1,6 @@
 import re
+import xml.etree.cElementTree as et
+
 
 def strip_markdown(text):
     # Remove headers
@@ -20,3 +22,5 @@ def strip_markdown(text):
     # Remove remaining backticks
     text = text.replace('`', '')
     return text.strip()
+
+

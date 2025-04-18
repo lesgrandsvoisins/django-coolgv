@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'markdownx',
     'solo',
     'markdown',
+    'django_svg_image_form_field',
     # 'markdownfield',
 ]
 

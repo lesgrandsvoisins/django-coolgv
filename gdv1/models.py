@@ -4,6 +4,8 @@ from django.urls import reverse
 from solo.models import SingletonModel
 from .fields import TitleMarkdownxFormField
 from .utils import strip_markdown
+from django.core.validators import FileExtensionValidator
+
 
 class TitleMarkdownxField(MarkdownxField):
     def formfield(self, **kwargs):
@@ -14,15 +16,18 @@ class TitleMarkdownxField(MarkdownxField):
 class SiteConfiguration(SingletonModel):
     title = TitleMarkdownxField(max_length=255, default='Titre du site')
     maintenance_mode = models.BooleanField(default=False)
-    body = MarkdownxField(null=True)
-    section1 = MarkdownxField(null=True)
-    section2 = MarkdownxField(null=True)
-    section3 = MarkdownxField(null=True)
-    intro    = MarkdownxField(null=True)
-    ghost_post_tag = models.SlugField(null=True, unique=False) 
-    footer1 = MarkdownxField(null=True)
-    footer2 = MarkdownxField(null=True)
-    description = MarkdownxField(null=True)
+    body = MarkdownxField(null=True,blank=True)
+    section1 = MarkdownxField(null=True,blank=True)
+    section2 = MarkdownxField(null=True,blank=True)
+    section3 = MarkdownxField(null=True,blank=True)
+    intro    = MarkdownxField(null=True,blank=True)
+    ghost_post_tag = models.SlugField(null=True, unique=False, blank=True) 
+    footer1 = MarkdownxField(null=True,blank=True)
+    footer2 = MarkdownxField(null=True,blank=True)
+    description = MarkdownxField(null=True,blank=True)
+    favicon = models.ImageField(upload_to="favicon/",null=True,blank=True)
+    # favicon_svg = models.FileField(upload_to="favicon/",null=True, validators=[FileExtensionValidator(allowed_extensions=['svg'])],blank=True)
+    favicon_svg = models.FileField(upload_to="favicon/",validators=[FileExtensionValidator(allowed_extensions=['svg'])],null=True,blank=True)
 
     def __str__(self):
         return "Configuration du site"

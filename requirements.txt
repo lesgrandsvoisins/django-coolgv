@@ -10,3 +10,4 @@ django-markdownfield
 html2text
 requests
 django-semantic-admin
+django-svg-image-form-field

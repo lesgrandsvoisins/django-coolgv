@@ -20,12 +20,22 @@
   {% if request.in_preview_panel %}
     <base target="_blank">
   {% endif %}
+  {% if page.favicon %}
+  <link rel="icon" href="{{ page.favicon.url }}" sizes="any">
+  <link rel="apple-touch-icon" href="{{ page.favicon.url }}">
+  {% else %}
   <link rel="icon" href="{% static 'favicon.ico' %}" sizes="any">
-  <link rel="icon" href="{% static 'gdv1/img/icon.svg' %}" type="image/svg+xml">
   <link rel="apple-touch-icon" href="{% static 'gdv1/img/icon.png' %}">
+  {% endif %}
 
+  {% if page.favicon_svg %}
+  <link rel="icon" href="{{ page.favicon_svg.url }}" type="image/svg+xml">
+  {% else %}
+  <link rel="icon" href="{% static 'gdv1/img/icon.svg' %}" type="image/svg+xml">
+  {% endif %}
+{% comment %} 
   <link rel="manifest" href="{% static 'site.webmanifest' %}">
-  
+{% endcomment %}
   {# Global stylesheets #}
   <link rel="stylesheet" type="text/css"  href="{% static 'css/lesgv.css' %}">
   <link rel="stylesheet" type="text/css"  href="{% static 'fonts/lack/stylesheet.css' %}" />
