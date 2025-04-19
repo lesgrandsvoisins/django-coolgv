@@ -6,6 +6,9 @@ import urllib.parse
 
 import requests
 
+# from PIL import Image
+
+
 
 # import xmlrpc.client
 
