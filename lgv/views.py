@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from .models import Gdv1Page, SiteConfiguration
+from .models import LgvPage, SiteConfiguration
 from html2text import html2text
 from markdown import markdown
 from .services import get_blog_posts, ProcessGhostParams
@@ -37,11 +37,11 @@ def index(request):
     "section2": ifValF(config.section2, lambda x: markdown(x)),
     "section3": ifValF(config.section3, lambda x: markdown(x)),
   })
-  return render(request, "gdv1/index.html",context)
+  return render(request, "lgv/index.html",context)
 
-class Gdv1Page(DetailView):
-  model = Gdv1Page
-  template_name = "gdv1/gdv1_page.html"
+class LgvPage(DetailView):
+  model = LgvPage
+  template_name = "lgv/lgv_page.html"
 
   def get_context_data(self, **kwargs):
     # Call the base implementation first to get a context

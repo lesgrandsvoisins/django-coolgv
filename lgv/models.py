@@ -35,7 +35,7 @@ class SiteConfiguration(SingletonModel):
     class Meta:
         verbose_name = "Configuration du site"
 
-class Gdv1Page(models.Model):
+class LgvPage(models.Model):
     title = TitleMarkdownxField()
     body = MarkdownxField()
     slug = models.SlugField(null=False, unique=True) 
@@ -44,6 +44,6 @@ class Gdv1Page(models.Model):
         return "page/%s : %s" % (self.slug, strip_markdown(self.title))
 
     def get_absolute_url(self):
-        return reverse("gdv1_page", kwargs={"slug": self.slug})
+        return reverse("lgv_page", kwargs={"slug": self.slug})
 
-# class Gdv1HomePage(Gdv1Page):
+# class LgvHomePage(LgvPage):

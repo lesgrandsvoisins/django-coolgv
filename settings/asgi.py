@@ -1,5 +1,5 @@
 """
-ASGI config for gdv1 project.
+ASGI config for lgv project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

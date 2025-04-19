@@ -1,5 +1,5 @@
 """
-WSGI config for gdv1 project.
+WSGI config for lgv project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

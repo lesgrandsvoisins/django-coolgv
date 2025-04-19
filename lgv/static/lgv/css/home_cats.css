@@ -1,0 +1,40 @@
+div#annuaire { grid-area: annuaire; }
+div#blog { grid-area: blog; }
+div#agenda { grid-area: agenda; }
+div#civisme { grid-area: civisme; }
+div#arts { grid-area: arts; }
+div#digital { grid-area: digital; }
+
+div.main_table {
+  display: grid;
+  grid-template-areas: "annuaire blog agenda" "civisme arts digital";
+  gap: 1rem;
+}
+div.main_table > div {
+  text-align: center;
+}
+div.info {
+  border: solid black 1px;
+  border-top: none;
+  border-radius: 0 0 1em 1em;
+}
+div.cat > h2 {
+  border: solid black 1px;
+  border-bottom: none;
+  border-radius: 1em 1em 0 0;
+  padding-bottom: 1rem;
+  margin-bottom: 0;
+}
+
+
+@media(width < 60em) {
+  div.main_table {
+     grid-template-areas: "annuaire civisme" "blog arts" "agenda digital";
+  }
+}
+
+@media(width < 40em) {
+  div.main_table {
+     grid-template-areas: "annuaire" "blog" "agenda" "civisme" "arts" "digital" ;
+  }
+}

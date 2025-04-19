@@ -1,4 +1,4 @@
-# Django-GDV1
+# Django-LGV
 
-Ceci est un nouveau site en Django pour l'association coopérative Les Grands Voisins sur gdv1.com et gdv1.org.
+Ceci est un nouveau site en Django pour l'association coopérative Les Grands Voisins sur lgv.com et lgv.org.
 
