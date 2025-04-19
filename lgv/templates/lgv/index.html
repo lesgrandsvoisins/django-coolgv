@@ -1,6 +1,8 @@
 {% extends "lgv/base.html" %}
 {% load static %}
-{% block body_class %}lesgv-home{% endblock body_class %}
+{% block body_class %}
+  lesgv-home
+{% endblock body_class %}
 {% block extra_css %}
   <link rel="stylesheet"
         type="text/css"
@@ -8,20 +10,26 @@
   <link rel="stylesheet"
         type="text/css"
         href="{% static 'css/lesgv/home.css' %}" />
+  <link rel="stylesheet"
+        type="text/css"
+        href="{% static 'lgv/css/home_cats.css' %}" />
 {% endblock extra_css %}
 {% block content %}
   <header class="min-w-full text-center">
     <a href="#main">
       <img class="logolgv max-w-full"
            src="{% static 'img/lesgv/logo-lesgrandsvoisins-800-400-white.png' %}"
-           height=800
-           width=400
+           height="800"
+           width="400"
            alt="Les Grands Voisins">
     </a>
   </header>
   <main class="gvhome darkmode" id="main">
     <div class="bg-gradient-to-tr from-blue-200 to-grey-600">
       <div class=" px-3 py-6 max-w-screen-lg mx-auto text-xl italic font-medium text-center">{{ intro | safe }}</div>
+    </div>
+    <div class="home_cats">
+      {% include "lesgv/fragments/home_cats.html" %}
     </div>
     <div class="px-3 py-6 max-w-screen-lg mx-auto text-lg pb-px-3 pt-px-0 home-section-1"
          id="section1">
@@ -76,7 +84,7 @@
                         {% endif %}
                       </ul>
                       <a href="{{ item.agenda_item.url }}"
-                         class="{% if forloop.counter|divisibleby:'2' %}left{% else %}right{% endif %}"">
+                        class="{% if forloop.counter|divisibleby:'2' %}left{% else %}right{% endif %}"">
                         {% comment %} <img src="{% item.agenda_item.image %}"> {% endcomment %}
                       </a>
                       {% if item.agenda_item.intro and item.agenda_item.intro != "" %}
@@ -93,21 +101,21 @@
           </div>
         </div>
       </div>
-      {% endif %}
-      <div class="bg-blue-300 py-6 ">
-        <h2 class="text-xl text-center">Blog</h2>
-        <div class="gvhome-blog px-3 py-2 max-w-screen-xl mx-auto lg:grid-cols-3 md:grid-cols-2 gap-x-4 md:grid">
-          {% include "lesgv/fragments/blog_posts.html" with posts=posts %}
-        </div>
+    {% endif %}
+    <div class="bg-blue-300 py-6 ">
+      <h2 class="text-xl text-center">Blog</h2>
+      <div class="gvhome-blog px-3 py-2 max-w-screen-xl mx-auto lg:grid-cols-3 md:grid-cols-2 gap-x-4 md:grid">
+        {% include "lesgv/fragments/blog_posts.html" with posts=posts %}
       </div>
-    </main>
-    <footer class="lesgv-footer md:grid grid-cols-2 bg-yellow-900 text-white">
-      <div class="footer1 p-5">{{ footer1|safe }}</div>
-      <div class="footer2 p-5">
-        {{ footer2|safe }}
-        <p>
-          (<a href="{% url 'admin:index' %}">admin</a>)
-        </p>
-        </div>
-      </footer>
-    {% endblock content %}
+    </div>
+  </main>
+  <footer class="lesgv-footer md:grid grid-cols-2 bg-yellow-900 text-white">
+    <div class="footer1 p-5">{{ footer1|safe }}</div>
+    <div class="footer2 p-5">
+      {{ footer2|safe }}
+      <p>
+        (<a href="{% url 'admin:index' %}">admin</a>)
+      </p>
+    </div>
+  </footer>
+{% endblock content %}
