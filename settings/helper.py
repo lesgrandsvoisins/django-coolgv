@@ -16,7 +16,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 load_dotenv()
 
 # REQUIRED = ["DATABASE_URL", "SITE_NAME", "SECRET_KEY", "WAGTAILTRANSFER_SECRET_KEY", "HOST_NAME"]
-REQUIRED = ["ALLOWED_HOSTS", "SECRET_KEY",]
+REQUIRED = ["ALLOWED_HOSTS", "SECRET_KEY", "DATABASE_URL"]
 
 needs_required = []
 for i in REQUIRED:
@@ -40,8 +40,15 @@ for host in ALLOWED_HOSTS:
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///%s/db.sqlite3" % BASE_DIR)  # Lire depuis .env
 
-STATIC_ROOT = os.path.join(BASE_DIR, os.getenv("STATIC_ROOT","static"))
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, os.getenv("STATIC_ROOT","static"))
 MEDIA_ROOT = os.path.join(BASE_DIR, os.getenv("MEDIA_ROOT","media"))
 
-SITE_URL = os.getenv("SECRET_KEY")
+STATIC_URL = os.path.join(BASE_DIR, os.getenv("STATIC_URL","static"))
+STATIC_URL = STATIC_URL if STATIC_URL.endswith('/') else STATIC_URL + '/'
+MEDIA_URL = os.path.join(BASE_DIR, os.getenv("MEDIA_URL","media"))
+MEDIA_URL = MEDIA_URL if MEDIA_URL.endswith('/') else MEDIA_URL + '/'
+
+WAGTAIL_SITE_NAME = os.getenv("WAGTAIL_SITE_NAME","Site")

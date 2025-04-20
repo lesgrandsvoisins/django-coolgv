@@ -11,3 +11,8 @@ html2text
 requests
 django-semantic-admin
 django-svg-image-form-field
+wagtailmenus
+wagtail
+wagtail-modeladmin
+gunicorn
+pillow

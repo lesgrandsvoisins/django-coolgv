@@ -12,14 +12,72 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import dj_database_url  # Pour un syntaxe différent de base de données
-from .helper import PROJECT_DIR, BASE_DIR, DEBUG, DEBUG_TOOLBAR, DATABASE_URL, HOST_NAME, SECRET_KEY, STATIC_ROOT, MEDIA_ROOT
+from .helper import *
 from datetime import datetime
+import os
+import dj_database_url  # Pour un syntaxe différent de base de données
+from urllib.parse import urlparse
+
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(PROJECT_DIR)
+
+# For AllAuth
+SITE_ID = 1
+
+SOCIALACCOUNT_PROVIDERS = {
+    "openid_connect": {
+        "OAUTH_PKCE_ENABLED": True,
+        # 'SOCIALACCOUNT_ONLY': True,
+        "APPS": [
+            {
+                "provider_id": "key-resdigita-com",
+                "name": "key.resdigita.com",
+                "client_id": os.getenv("OPENID_NAME"),
+                "secret": os.getenv("OPENID_SECRET"),
+                "settings": {
+                    "server_url": os.getenv("OPENID_URL"),
+                    # Optional token endpoint authentication method.
+                    # May be one of "client_secret_basic", "client_secret_post"
+                    # If omitted, a method from the the server's
+                    # token auth methods list is used
+                    "token_auth_method": "client_secret_post",
+                },
+            },
+        ],
+    }
+}
+ACCOUNT_LOGIN_METHODS = {'username'}
+SOCIALACCOUNT_AUTO_SIGNUP = True
+ACCOUNT_EMAIL_VERIFICATION = "none"
+SOCIALACCOUNT_ONLY = True
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.openid_connect",
     "semantic_admin",
     "semantic_forms",
+    "wagtail.contrib.forms",
+    "wagtail.contrib.redirects",
+    "wagtail.contrib.settings",
+    "wagtail.embeds",
+    "wagtail.sites",
+    "wagtail.users",
+    "wagtail.snippets",
+    "wagtail.documents",
+    "wagtail.images",
+    "wagtail.search",
+    "wagtail.admin",
+    'wagtail.locales',  # Optinal Wagtial locale management UI
+    "wagtail.contrib.simple_translation",
+    "modelcluster",
+    "wagtail",
+    "taggit",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -27,11 +85,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_lgv',
+    'wagtail_modeladmin',          # if Wagtail >=5.1; Don't repeat if it's there already
+    'wagtailmenus',
     'markdownx',
     'solo',
     'markdown',
-    'django_svg_image_form_field',
+    # 'django_svg_image_form_field',
     # 'markdownfield',
+    'django.contrib.humanize',
+    "sass_processor",
 ]
 
 MIDDLEWARE = [
@@ -42,24 +104,51 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "wagtail.contrib.redirects.middleware.RedirectMiddleware", # Added
+    'django.middleware.locale.LocaleMiddleware', # For automatic language prefix
 ]
+
+MIDDLEWARE += [
+    "allauth.account.middleware.AccountMiddleware",
+]
+
+
+# if DEBUG and "localhost" in HOST_NAME:
+if DEBUG_TOOLBAR:
+    INSTALLED_APPS += [
+        'debug_toolbar',
+    ];
+    MIDDLEWARE += [
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+    ]
+    INTERNAL_IPS = ["127.0.0.1", "localhost "]
+
 
 ROOT_URLCONF = 'settings.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, "templates"), # Not sure if necessary. Should jsut be in apps
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                "django.template.context_processors.debug", # Added for debug
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n', # Added
+                'wagtail.contrib.settings.context_processors.settings', # Added
+                'wagtailmenus.context_processors.wagtailmenus', # Added
             ],
         },
     },
 ]
+
+SILENCED_SYSTEM_CHECKS = ["wagtailadmin.W002"] # https://github.com/jazzband/wagtailmenus/issues/464
+
 
 WSGI_APPLICATION = 'settings.wsgi.application'
 
@@ -106,16 +195,72 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
-STATIC_URL = 'static/'
-MEDIA_URL = 'media/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')
+
+# Default storage settings, with the staticfiles storage updated.
+# See https://docs.djangoproject.com/en/5.1/ref/settings/#std-setting-STORAGES
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    # ManifestStaticFilesStorage is recommended in production, to prevent
+    # outdated JavaScript / CSS assets being served from cache
+    # (e.g. after a Wagtail upgrade).
+    # See https://docs.djangoproject.com/en/5.1/ref/contrib/staticfiles/#manifeststaticfilesstorage
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+    },
+}
+
+# Wagtail settings
+WAGTAIL_SITE_NAME = "resdigita"
+
+# Search
+# https://docs.wagtail.org/en/stable/topics/search/backends.html
+WAGTAILSEARCH_BACKENDS = {
+    "default": {
+        "BACKEND": "wagtail.search.backends.database",
+    }
+}
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+# Base URL to use when referring to full URLs within the Wagtail admin backend -
+# e.g. in notification emails. Don't include '/admin' or a trailing slash
+WAGTAILADMIN_BASE_URL = "http://example.com"
+
+# Allowed file extensions for documents in the document library.
+# This can be omitted to allow all files, but note that this may present a security risk
+# if untrusted users are allowed to upload files -
+# see https://docs.wagtail.org/en/stable/advanced_topics/deploying.html#user-uploaded-files
+WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip']
+
+# Logging
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "log_file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": "debug.log",
+        },
+    },
+    "loggers": {
+        "openai_logger": {
+            "handlers": ["log_file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
