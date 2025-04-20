@@ -10,7 +10,7 @@ endif
 
 ifeq ($(USE_DOCKER),1)
 	EXEC_CMD := docker-compose exec -ti $(DOCKER_CONTAINER)
-	PROJECT_PATH := /home/wagtail/django-lgv/
+	PROJECT_PATH := /home/wagtail/django-django_lgv/
 else
 	EXEC_CMD := 
 	PROJECT_PATH := ${dir ${abspath ${lastword ${MAKEFILE_LIST}}}}

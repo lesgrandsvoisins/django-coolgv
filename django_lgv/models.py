@@ -13,7 +13,7 @@ class TitleMarkdownxField(MarkdownxField):
         defaults.update(kwargs)
         return super(TitleMarkdownxField, self).formfield(**defaults)
 
-class SiteConfiguration(SingletonModel):
+class DjangoLgvSiteConfiguration(SingletonModel):
     title = TitleMarkdownxField(max_length=255, default='Titre du site')
     maintenance_mode = models.BooleanField(default=False)
     body = MarkdownxField(null=True,blank=True)
@@ -35,7 +35,7 @@ class SiteConfiguration(SingletonModel):
     class Meta:
         verbose_name = "Configuration du site"
 
-class LgvPage(models.Model):
+class DjangoLgvPage(models.Model):
     title = TitleMarkdownxField()
     body = MarkdownxField()
     slug = models.SlugField(null=False, unique=True) 
@@ -44,6 +44,6 @@ class LgvPage(models.Model):
         return "page/%s : %s" % (self.slug, strip_markdown(self.title))
 
     def get_absolute_url(self):
-        return reverse("lgv_page", kwargs={"slug": self.slug})
+        return reverse("django_lgv_page", kwargs={"slug": self.slug})
 
-# class LgvHomePage(LgvPage):
+# class DjangoLgvHomePage(DjangoLgvPage):

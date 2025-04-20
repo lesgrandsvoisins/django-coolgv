@@ -2,20 +2,20 @@
 <!doctype html>
 <html class="no-js" lang="fr">
 
-{% get_solo 'lgv.SiteConfiguration' as site_config %}
+{% get_solo 'django_lgv.DjangoLgvSiteConfiguration' as site_config %}
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}{{ page.title_txt }}{% endblock title %}</title>
-  <link rel="stylesheet" href="{% static 'lgv/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'django_lgv/css/style.css' %}">
   <meta name="description" content="{{ page.description_txt }}">
 
   <meta property="og:title" content="{{ page.title_txt }}">
   <meta property="og:type" content="page.type_og">
   <meta property="og:url" content="{{ request.path }}">
-  <meta property="og:image" content="{% static 'lgv/img/icon.svg' %}">
-  <meta property="og:image:alt" content="{% static 'lgv/img/icon.png' %}">
+  <meta property="og:image" content="{% static 'django_lgv/img/icon.svg' %}">
+  <meta property="og:image:alt" content="{% static 'django_lgv/img/icon.png' %}">
 
   {% if request.in_preview_panel %}
     <base target="_blank">
@@ -25,13 +25,13 @@
   <link rel="apple-touch-icon" href="{{ page.favicon.url }}">
   {% else %}
   <link rel="icon" href="{% static 'favicon.ico' %}" sizes="any">
-  <link rel="apple-touch-icon" href="{% static 'lgv/img/icon.png' %}">
+  <link rel="apple-touch-icon" href="{% static 'django_lgv/img/icon.png' %}">
   {% endif %}
 
   {% if page.favicon_svg %}
   <link rel="icon" href="{{ page.favicon_svg.url }}" type="image/svg+xml">
   {% else %}
-  <link rel="icon" href="{% static 'lgv/img/icon.svg' %}" type="image/svg+xml">
+  <link rel="icon" href="{% static 'django_lgv/img/icon.svg' %}" type="image/svg+xml">
   {% endif %}
 {% comment %} 
   <link rel="manifest" href="{% static 'site.webmanifest' %}">
@@ -51,8 +51,8 @@
   {% block content %}
     {{ page.body_html | safe }}
   {% endblock content %}
-<script src="{% static 'lgv/js/lesgv.js' %}"></script>
-<script src="{% static 'lgv/js/app.js' %}"></script>
+<script src="{% static 'django_lgv/js/lesgv.js' %}"></script>
+<script src="{% static 'django_lgv/js/app.js' %}"></script>
 {% block extra_js %}
 {# Override this in templates to add extra javascript #}
 {% endblock extra_js %}

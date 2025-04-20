@@ -1,5 +1,5 @@
 """
-ASGI config for lgv project.
+ASGI config for django_lgv project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

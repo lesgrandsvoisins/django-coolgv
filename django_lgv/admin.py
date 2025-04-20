@@ -1,15 +1,15 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import LgvPage, SiteConfiguration
+from .models import DjangoLgvPage, DjangoLgvSiteConfiguration
 from markdownx.admin import MarkdownxModelAdmin
 from solo.admin import SingletonModelAdmin
 
 class SingleModelAdmin(MarkdownxModelAdmin,SingletonModelAdmin):
   pass
 
-# class LgvPageAdmin(admin.ModelAdmin):
+# class DjangoLgvPageAdmin(admin.ModelAdmin):
 #     list_display = ("title", "body",)
 
-admin.site.register(LgvPage, MarkdownxModelAdmin)
-admin.site.register(SiteConfiguration, SingleModelAdmin)
+admin.site.register(DjangoLgvPage, MarkdownxModelAdmin)
+admin.site.register(DjangoLgvSiteConfiguration, SingleModelAdmin)

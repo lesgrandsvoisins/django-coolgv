@@ -1,4 +1,4 @@
-{% extends "lgv/base.html" %}
+{% extends "django_lgv/base.html" %}
 {% load static %}
 {% block body_class %}
   lesgv-home
@@ -12,12 +12,12 @@
         href="{% static 'css/lesgv/home.css' %}" />
   <link rel="stylesheet"
         type="text/css"
-        href="{% static 'lgv/css/home_cards.css' %}" />
+        href="{% static 'django_lgv/css/home_cards.css' %}" />
 {% endblock extra_css %}
 {% block content %}
   <header class="min-w-full text-center">
     <a href="#main">
-      <img class="logolgv max-w-full"
+      <img class="logo_lgv max-w-full"
            src="{% static 'img/lesgv/logo-lesgrandsvoisins-800-400-white.png' %}"
            height="800"
            width="400"
@@ -29,7 +29,7 @@
       <div class=" px-3 py-6 max-w-screen-lg mx-auto text-xl italic font-medium text-center">{{ intro | safe }}</div>
     </div>
     <div class="home_cards">
-      {% include "lgv/fragments/home_cards.html" %}
+      {% include "django_lgv/fragments/home_cards.html" %}
     </div>
     <div class="px-3 py-6 max-w-screen-lg mx-auto text-lg pb-px-3 pt-px-0 home-section-1"
          id="section1">

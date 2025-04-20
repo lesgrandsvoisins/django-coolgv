@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from .models import LgvPage, SiteConfiguration
+from .models import DjangoLgvPage, DjangoLgvSiteConfiguration
 from html2text import html2text
 from markdown import markdown
 from .services import get_blog_posts, ProcessGhostParams
@@ -12,7 +12,7 @@ def ifValF(val,func):
 
 # Create your views here.
 def index(request):
-  config = SiteConfiguration.get_solo()
+  config = DjangoLgvSiteConfiguration.get_solo()
   context = {'page': 
     {
       "title_txt": html2text(config.title),
@@ -37,11 +37,11 @@ def index(request):
     "section2": ifValF(config.section2, lambda x: markdown(x)),
     "section3": ifValF(config.section3, lambda x: markdown(x)),
   })
-  return render(request, "lgv/index.html",context)
+  return render(request, "django_lgv/index.html",context)
 
-class LgvPage(DetailView):
-  model = LgvPage
-  template_name = "lgv/lgv_page.html"
+class DjangoLgvPage(DetailView):
+  model = DjangoLgvPage
+  template_name = "django_lgv/django_lgv_page.html"
 
   def get_context_data(self, **kwargs):
     # Call the base implementation first to get a context
