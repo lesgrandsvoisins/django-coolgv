@@ -16,3 +16,9 @@ wagtail
 wagtail-modeladmin
 gunicorn
 pillow
+django-allauth
+django-sass-processor
+django-debug-toolbar
+jwt
+wagtail-grapple
+graphene-django

@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.openid_connect",
     "semantic_admin",
     "semantic_forms",
+    'wagtail_lgv',
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.contrib.settings",
@@ -94,6 +95,8 @@ INSTALLED_APPS = [
     # 'markdownfield',
     'django.contrib.humanize',
     "sass_processor",
+    "grapple",
+    "graphene_django",
 ]
 
 MIDDLEWARE = [
@@ -263,4 +266,10 @@ LOGGING = {
             "propagate": False,
         },
     },
+}
+
+# Grapple config:
+GRAPHENE = {"SCHEMA": "grapple.schema.schema"}
+GRAPPLE = {
+    "APPS": ["wagtail_lgv"],
 }

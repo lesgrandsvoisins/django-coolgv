@@ -1,0 +1,55 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ page.title_txt }}{% endblock title %}</title>
+  <link rel="stylesheet" href="{% static 'wagtail_lgv/css/style.css' %}">
+  <meta name="description" content="{{ page.description }}">
+
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:type" content="page.type_og">
+  <meta property="og:url" content="{{ request.path }}">
+  <meta property="og:image" content="{% static 'wagtail_lgv/img/logo-lesgrandsvoisins-600-600.svg' %}">
+
+
+  {% if request.in_preview_panel %}
+    <base target="_blank">
+  {% endif %}
+  {% if page.favicon %}
+  <link rel="icon" href="{{ page.favicon.url }}" sizes="any">
+  <link rel="apple-touch-icon" href="{{ page.favicon.url }}">
+  {% else %}
+  <link rel="icon" href="{% static 'favicon.ico' %}" sizes="any">
+  <link rel="apple-touch-icon" href="{% static 'wagtail_lgv/img/logo-lesgrandsvoisins-600-600.svg' %}">
+  {% endif %}
+
+
+{% comment %} 
+  <link rel="manifest" href="{% static 'site.webmanifest' %}">
+{% endcomment %}
+  {# Global stylesheets #}
+  <link rel="stylesheet" type="text/css"  href="{% static 'css/lesgv.css' %}">
+  <link rel="stylesheet" type="text/css"  href="{% static 'fonts/lack/stylesheet.css' %}" />
+  <link rel="stylesheet" type="text/css"  href="{% static 'fonts/fengardoneue/font.css' %}" />
+  {% block extra_css %}
+  {# Override this in templates to add extra stylesheets #}
+  {% endblock extra_css %}
+  {% block extra_head %}
+  {% endblock extra_head %}
+</head>
+
+<body class="{% block body_class %}{% endblock body_class %} darkmode">
+  {% block content %}
+    {{ page.body | safe }}
+  {% endblock content %}
+<script src="{% static 'django_lgv/js/lesgv.js' %}"></script>
+<script src="{% static 'django_lgv/js/app.js' %}"></script>
+{% block extra_js %}
+{# Override this in templates to add extra javascript #}
+{% endblock extra_js %}
+</body>
+
+</html>

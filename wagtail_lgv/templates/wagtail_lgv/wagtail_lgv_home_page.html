@@ -1,0 +1,121 @@
+{% extends "wagtail_lgv/base.html" %}
+{% load static wagtailcore_tags %}
+{% block body_class %}
+  wagtail_lgv_home_page
+{% endblock body_class %}
+{% block extra_css %}
+  <link rel="stylesheet"
+        type="text/css"
+        href="{% static 'css/lesgv/tailwind.css' %}" />
+  <link rel="stylesheet"
+        type="text/css"
+        href="{% static 'css/lesgv/home.css' %}" />
+  <link rel="stylesheet"
+        type="text/css"
+        href="{% static 'django_lgv/css/home_cards.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <header class="min-w-full text-center">
+    <a href="#main">
+      <img class="logo_lgv max-w-full"
+           src="{% static 'wagtail_lgv/img/logo-lesgrandsvoisins-800-400-white.png' %}"
+           height="800"
+           width="400"
+           alt="Les Grands Voisins">
+    </a>
+  </header>
+  <main class="gvhome darkmode" id="main">
+    <div class="bg-gradient-to-tr from-blue-200 to-grey-600">
+      <div class=" px-3 py-6 max-w-screen-lg mx-auto text-xl italic font-medium text-center">{{ intro | richtext }}</div>
+    </div>
+    <div class="home_cards">
+      {% include "django_lgv/fragments/home_cards.html" %}
+    </div>
+    <div class="px-3 py-6 max-w-screen-lg mx-auto text-lg pb-px-3 pt-px-0 home-section-1"
+         id="section1">
+      <div class=" ml-[30vw] border-l border-solid border-black home-section-1-inner">{{ section1|richtext }}</div>
+    </div>
+    <div class="bg-yellow-800 text-white home-section-2" id="section2">
+      <div class="px-3 pr-py-6 max-w-screen-lg mx-auto text-lg list-inside list-disc">{{ section2|richtext }}</div>
+      <div class="aspect-w-16 aspect-h-9 px-3 py-6 max-w-screen-lg mx-auto">
+        <iframe class="mx-auto max-w-full"
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/qZqErGfNF_o?si=nUTHI3lIeeKnNweZ"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="px-3 py-6 max-w-screen-lg mx-auto home-section-3"
+         id="section3">{{ section3|richtext }}</div>
+    {% if related_agenda %}
+      <div class="bg-[url({% static 'img/lesgv/agenda.jpg' %})] bg-fixed">
+        <div class="px-3 py-6 max-w-screen-lg mx-auto">
+          <div class="agendas max-w-screen-lg">
+            <div class="card agenda max-w-screen-lg">
+              <div class="card-body max-w-screen-lg">
+                <div class="agenda-home">
+                  <h2>Agenda</h2>
+                  {% for item in related_agenda %}
+                    <div class="agenda-item">
+                      {% if item.agenda_item.redirect_url %}
+                        <h3>
+                          <a href="{{ item.agenda_item.redirect_url }}">{{ item.agenda_item.title }}</a>
+                        </h3>
+                      {% else %}
+                        <h3>
+                          <a href="{{ item.agenda_item.url }}">{{ item.agenda_item.title }}</a>
+                        </h3>
+                      {% endif %}
+                      <ul class="agenda-item-date-lieu">
+                        {% if item.agenda_item.start %}<li>{{ item.agenda_item.start }}</li>{% endif %}
+                        {% if item.agenda_item.end %}<li>{{ item.agenda_item.end }}</li>{% endif %}
+                        {% if item.agenda_item.place %}
+                          {% if item.agenda_item.place_url %}
+                            <li>
+                              <a href="{{ item.agenda_item.place_url }}">{{ item.agenda_item.place }}</a>
+                            </li>
+                          {% else %}
+                            <li>{{ item.agenda_item.place }}</li>
+                          {% endif %}
+                        {% endif %}
+                      </ul>
+                      <a href="{{ item.agenda_item.url }}"
+                        class="{% if forloop.counter|divisibleby:'2' %}left{% else %}right{% endif %}"">
+                        {% comment %} <img src="{% item.agenda_item.image %}"> {% endcomment %}
+                      </a>
+                      {% if item.agenda_item.intro and item.agenda_item.intro != "" %}
+                        {{ item.agenda_item.intro|richtext }}
+                      {% else %}
+                        {{ item.agenda_item.body|richtext }}
+                      {% endif %}
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="author"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    <div class="bg-blue-300 py-6 ">
+      <h2 class="text-xl text-center">Blog</h2>
+      <div class="gvhome-blog px-3 py-2 max-w-screen-xl mx-auto lg:grid-cols-3 md:grid-cols-2 gap-x-4 md:grid">
+        {% include "lesgv/fragments/blog_posts.html" with posts=posts %}
+      </div>
+    </div>
+  </main>
+  <footer class="lesgv-footer md:grid grid-cols-2 bg-yellow-900 text-white">
+    <div class="footer1 p-5">{{ footer1|richtext }}</div>
+    <div class="footer2 p-5">
+      {{ footer2|richtext }}
+      <p>
+        (<a href="{% url 'admin:index' %}">admin</a>)
+      </p>
+    </div>
+  </footer>
+{% endblock content %}
